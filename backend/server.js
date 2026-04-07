@@ -13,15 +13,33 @@ dotenv.config();
 
 const app = express();
 
-// middleware
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+// ✅ Allowed origins (add future domains here)
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://portfolio-app-git-main-pratham-s-projects-ee9daf50.vercel.app",
+];
+
+// ✅ CORS middleware (dynamic + safe)
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 
-// test route
+// ✅ Health check route (Render use kari shake)
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
