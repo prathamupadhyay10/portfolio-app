@@ -16,7 +16,7 @@ const app = express();
 // ✅ Allowed origins (add future domains here)
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://portfolio-app-git-main-pratham-s-projects-ee9daf50.vercel.app",
+  "https://portfolio-app-sigma-mauve.vercel.app",
 ];
 
 // ✅ CORS middleware (dynamic + safe)
