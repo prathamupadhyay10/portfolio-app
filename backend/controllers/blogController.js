@@ -78,8 +78,8 @@ export const updatePost = async (req, res) => {
       return res.status(404).json({ msg: "Post not found" });
     }
 
-    // only owner can update
-    if (post.author.toString() !== req.user.id) {
+    // Allow if owner OR admin
+    if (post.author.toString() !== req.user.id && req.user.role !== 'admin') {
       return res.status(403).json({ msg: "Not authorized" });
     }
 
@@ -111,8 +111,8 @@ export const deletePost = async (req, res) => {
       return res.status(404).json({ msg: "Post not found" });
     }
 
-    // only owner can delete
-    if (post.author.toString() !== req.user.id) {
+    // Allow if owner OR admin
+    if (post.author.toString() !== req.user.id && req.user.role !== 'admin') {
       return res.status(403).json({ msg: "Not authorized" });
     }
 
